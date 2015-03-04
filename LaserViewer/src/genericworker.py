@@ -1,7 +1,7 @@
 #
 # Copyright (C) 2015 by YOUR NAME HERE
 #
-#    This file is part of RoboComp
+# This file is part of RoboComp
 #
 #    RoboComp is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,31 +20,28 @@ from PySide import *
 
 
 class GenericWorker(QtCore.QObject):
-	kill = QtCore.Signal()
+    kill = QtCore.Signal()
 
 
-	def __init__(self, mprx):
-		super(GenericWorker, self).__init__()
+    def __init__(self, mprx):
+        super(GenericWorker, self).__init__()
+
+        self.laser_proxy = mprx["LaserProxy"]
+
+        self.mutex = QtCore.QMutex()
+        self.Period = 30
+        self.timer = QtCore.QTimer(self)
 
 
-		self.laser_proxy = mprx["LaserProxy"]
+    @QtCore.Slot()
+    def killYourSelf(self):
+        rDebug("Killing myself")
+        self.kill.emit()
 
-		
-		
-		self.mutex = QtCore.QMutex()
-		self.Period = 30
-		self.timer = QtCore.QTimer(self)
-
-
-	@QtCore.Slot()
-	def killYourSelf(self):
-		rDebug("Killing myself")
-		self.kill.emit()
-
-	# \brief Change compute period
-	# @param per Period in ms
-	@QtCore.Slot(int)
-	def setPeriod(self, p):
-		print "Period changed", p
-		Period = p
-		timer.start(Period)
+    # \brief Change compute period
+    # @param per Period in ms
+    @QtCore.Slot(int)
+    def setPeriod(self, p):
+        print "Period changed", p
+        Period = p
+        timer.start(Period)

@@ -61,6 +61,8 @@ class SpecificWorker(GenericWorker):
 	@QtCore.Slot()
 	def compute(self):
 		print 'SpecificWorker.compute...'
+		ld=self.laser_proxy.getLaserData()
+		print ld
 		#// 	try
 		#// 	{
 		#// 		camera_proxy->getYImage(0,img, cState, bState);
@@ -122,6 +124,8 @@ class SpecificWorker(GenericWorker):
 		#
 		# YOUR CODE HERE
 		#
+		pass
+	def lf(self):
 		pass
 
 

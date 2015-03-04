@@ -1,5 +1,5 @@
 # Proxies for required interfaces
-LaserProxy = laser:tcp -h localhost -p 0
+LaserProxy = laser:tcp -h localhost -p 10003
 
 
 
